@@ -1,5 +1,6 @@
 package com.literaturaPhatos.literaturaAPI;
 
+import com.literaturaPhatos.literaturaAPI.main.Main;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ public class LiteraturaApiApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Corriendooooooo");
+		Main main = new Main();
+		main.app();
 	}
 }
