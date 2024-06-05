@@ -1,5 +1,6 @@
 package com.literaturaPhatos.literaturaAPI.service;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -24,13 +25,12 @@ public class ConsumeAPI {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(response.statusCode());
         String json = response.body();
         return json;
     }
 
-    public JsonObject getDataResults(String json) {
-        JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-        return jsonObject;
+    public JsonArray getDataResultsAsJson(String json) {
+        JsonArray jsonResults = JsonParser.parseString(json).getAsJsonObject().get("results").getAsJsonArray();
+        return jsonResults;
     }
 }
