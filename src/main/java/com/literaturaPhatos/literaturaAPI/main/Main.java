@@ -81,6 +81,7 @@ public class Main {
          //busqueda para evitar que se repitan libros en la db
         Optional<Book> dbBook = bookRepository.findByTitleContainsIgnoreCase(userTitle);
         if (dbBook.isPresent()) {
+            System.out.println("------- El libro ya se encuentra registrado -------");
             System.out.println(dbBook.get());
             // si encontramos el libro en la api...
         } else if (apiBook.isPresent()) {

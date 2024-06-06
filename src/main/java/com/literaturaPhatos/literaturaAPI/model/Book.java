@@ -65,4 +65,16 @@ public class Book {
     public void setDownloads(Double downloads) {
         this.downloads = downloads;
     }
+
+    @Override
+    public String toString() {
+        String message = String.format("""
+                --- LIBRO ---
+                Título: %s
+                Autor: %s
+                Idioma: %s
+                Número de descargas: %s
+                ------------""", title, author.getName(), language, downloads);
+        return message;
+    }
 }
