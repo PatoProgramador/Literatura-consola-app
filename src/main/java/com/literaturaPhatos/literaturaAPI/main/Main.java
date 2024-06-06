@@ -86,10 +86,8 @@ public class Main {
         } else if (apiBook.isPresent()) {
             // busqueda de autores
             List<Author> authorList = apiBook.get().authors().stream()
-                    .map(a -> {
-                        return authorRepository.findByNameContainsIgnoreCase(a.name())
-                                .orElseGet(() -> authorRepository.save(new Author(a)));
-                    })
+                    .map(a -> authorRepository.findByNameContainsIgnoreCase(a.name())
+                            .orElseGet(() -> authorRepository.save(new Author(a))))
                     .collect(Collectors.toList());
 
             Book newDbBook = new Book(apiBook.get(),authorList);
