@@ -2,6 +2,7 @@ package com.literaturaPhatos.literaturaAPI.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -16,14 +17,12 @@ public class Book {
     @ManyToOne
     private Author author;
 
-    public Book(BookData bookData) {
+    public Book() {}
+
+    public Book(BookData bookData, List<Author> authorList) {
         this.title = bookData.title();
         this.language = bookData.languages().get(0);
-        Optional<AuthorData> autor = bookData.authors().stream()
-                .findFirst();
-        if (autor.isPresent()) {
-            this.author = new Author();
-        }
+        this.author = authorList.get(0);
     }
 
     public String getTitle() {

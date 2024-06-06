@@ -14,9 +14,10 @@ public class Author {
     private String name;
     private Integer birthYear;
     private Integer deathYear;
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Book> books;
 
+    public Author() {}
     public Author(AuthorData authorData) {
         this.name = authorData.name();
         this.birthYear = authorData.birthYear();
