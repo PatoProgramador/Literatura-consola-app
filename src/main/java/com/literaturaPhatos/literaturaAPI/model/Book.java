@@ -23,6 +23,7 @@ public class Book {
         this.title = bookData.title();
         this.language = bookData.languages().get(0);
         this.author = authorList.get(0);
+        this.downloads = Double.valueOf(bookData.downloads());
     }
 
     public String getTitle() {
