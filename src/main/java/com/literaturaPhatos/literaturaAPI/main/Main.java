@@ -52,6 +52,9 @@ public class Main {
                 case 1:
                     searchBookByTitle();
                     break;
+                case 2:
+                    getAllBooks();
+                    break;
                 default:
                     System.out.println("Opción invalida");
                     break;
@@ -97,5 +100,12 @@ public class Main {
         } else {
             System.out.println("Libro no encontrado :(");
         }
+    }
+
+    public void getAllBooks() {
+       List<Book> dbBooks = bookRepository.findAll();
+       dbBooks.forEach(System.out::println);
+       System.out.println("Total de libros registrados: " + dbBooks.size());
+       System.out.println("------------");
     }
 }
