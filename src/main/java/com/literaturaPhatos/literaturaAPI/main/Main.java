@@ -141,5 +141,30 @@ public class Main {
         filteredAuthors.forEach(System.out::println);
     }
 
-    public void getBooksByLanguage() {}
+    public void getBooksByLanguage() {
+        List<String> languages = List.of("es", "en", "fr", "pt");
+        String languageMenu = """
+                Ingrese el idioma para buscar los libros:
+                es - Español
+                en - Inglés
+                fr - Francés
+                pt - Portugues
+                """;
+        System.out.println(languageMenu);
+        String userLan = SCANNER.nextLine();
+        // validacion...
+        while (!languages.contains(userLan)) {
+            System.out.println("Opción invalida, ingresa un idioma de la lista: ");
+            userLan = SCANNER.nextLine();
+        }
+        List<Book> dbBooks = bookRepository.filterBooksByLanguage(userLan);
+
+        if (dbBooks.isEmpty()) {
+            System.out.println("------------------------");
+            System.out.println("No hay libros registrados con este idioma :(");
+            System.out.println("------------------------");
+        } else {
+            dbBooks.forEach(System.out::println);
+        }
+    }
 }
