@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "author")
@@ -14,7 +15,7 @@ public class Author {
     private String name;
     private Integer birthYear;
     private Integer deathYear;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Book> books;
 
     public Author() {}
@@ -62,5 +63,22 @@ public class Author {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        List<String> authorBooks = books.stream()
+                .map(b -> b.getTitle())
+                .collect(Collectors.toList());
+
+        String message = String.format("""
+                --- AUTOR ---
+                Nombre: %s
+                Fecha de nacimiento: %s
+                Fecha de fallecimiento: %s
+                Libros: %s
+                ------------""", name, birthYear, deathYear, authorBooks);
+
+        return message;
     }
 }

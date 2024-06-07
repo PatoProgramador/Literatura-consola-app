@@ -31,19 +31,20 @@ public class Main {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
     }
-    private final String MENU = """
-            Selecciona la opción ingresando el número correspondiente:
-            1- Buscar libro por título.
-            2- Listar libros registrados.
-            3- Listar autores registrados.
-            4- Listar autores vivos en un determinado año.
-            5- Listar libros por idioma.
-            0- Salir.
-            """;
+
     private int option = -1;
 
     public void app() {
         while (option != 0) {
+            String MENU = """
+                    Selecciona la opción ingresando el número correspondiente:
+                    1- Buscar libro por título.
+                    2- Listar libros registrados.
+                    3- Listar autores registrados.
+                    4- Listar autores vivos en un determinado año.
+                    5- Listar libros por idioma.
+                    0- Salir.
+                    """;
             System.out.println(MENU);
             option = SCANNER.nextInt();
             SCANNER.nextLine();
@@ -54,6 +55,18 @@ public class Main {
                     break;
                 case 2:
                     getAllBooks();
+                    break;
+                case 3:
+                    getAllAuthors();
+                    break;
+                case 4:
+                    getAuthorsByLiveDate();
+                    break;
+                case 5:
+                    getBooksByLanguage();
+                    break;
+                case 0:
+                    System.out.println("Cerrando la app...");
                     break;
                 default:
                     System.out.println("Opción invalida");
@@ -88,12 +101,12 @@ public class Main {
             System.out.println(dbBook.get());
             // si encontramos el libro en la api...
         } else if (apiBook.isPresent()) {
-            // busqueda de autores
+            // busqueda y/o crear nuevo autor
             List<Author> authorList = apiBook.get().authors().stream()
                     .map(a -> authorRepository.findByNameContainsIgnoreCase(a.name())
                             .orElseGet(() -> authorRepository.save(new Author(a))))
                     .collect(Collectors.toList());
-
+            // nueva instancia...
             Book newDbBook = new Book(apiBook.get(),authorList);
             bookRepository.save(newDbBook);
             System.out.println(newDbBook);
@@ -105,7 +118,28 @@ public class Main {
     public void getAllBooks() {
        List<Book> dbBooks = bookRepository.findAll();
        dbBooks.forEach(System.out::println);
-       System.out.println("Total de libros registrados: " + dbBooks.size());
-       System.out.println("------------");
+       printSizeBr("libros", dbBooks.size());
     }
+
+    public void getAllAuthors() {
+        List<Author> dbAuthors = authorRepository.findAll();
+        dbAuthors.forEach(System.out::println);
+        printSizeBr("autores", dbAuthors.size());
+    }
+
+    public void printSizeBr(String entity, int size) {
+        System.out.printf("Total de %s registrados: %s\n", entity, size );
+        System.out.println("------------");
+    }
+
+    public void getAuthorsByLiveDate() {
+        System.out.println("Ingresa el año bajo el cual quieres consultar los autores que vivieron en dicha época: ");
+        int year = SCANNER.nextInt();
+        SCANNER.nextLine();
+
+        List<Author> filteredAuthors = authorRepository.filterAuthorsByYear(year);
+        filteredAuthors.forEach(System.out::println);
+    }
+
+    public void getBooksByLanguage() {}
 }
