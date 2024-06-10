@@ -12,4 +12,7 @@ public interface BookRepository extends JpaRepository<Book,Long> {
 
     @Query("SELECT b FROM Book b WHERE b.language = :lan")
     List<Book> filterBooksByLanguage(String lan);
+
+    @Query(value = "SELECT * FROM book ORDER BY downloads DESC LIMIT 10", nativeQuery= true)
+    List<Book> filterBooksByDownloads();
 }

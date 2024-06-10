@@ -72,6 +72,9 @@ public class Main {
                 case 7:
                     getApiPopularBooks();
                     break;
+                case 8:
+                    getDBPopularBooks();
+                    break;
                 case 0:
                     System.out.println("Cerrando la app...");
                     break;
@@ -205,5 +208,12 @@ public class Main {
                 Idioma: %s
                 Número de descargas: %s
                 ------------\n""", b.title(), b.authors().get(0).name(), b.languages().get(0), b.downloads()));
+    }
+
+    public void getDBPopularBooks() {
+        List<Book> dbBooks = bookRepository.filterBooksByDownloads();
+
+        dbBooks.forEach(System.out::println);
+        printSizeBr("libros", dbBooks.size());
     }
 }
