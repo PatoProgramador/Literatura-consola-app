@@ -42,6 +42,8 @@ public class Main {
                     4- Listar autores vivos en un determinado año.
                     5- Listar libros por idioma.
                     6- Estadisticas de los libros descargados.
+                    7- Listar libros más descargados de la API gutendex.
+                    8- Listar libros más descargados en nuestro registro.
                     0- Salir.
                     """;
             System.out.println(MENU);
@@ -67,6 +69,9 @@ public class Main {
                 case 6:
                     getBooksStatistics();
                     break;
+                case 7:
+                    getApiPopularBooks();
+                    break;
                 case 0:
                     System.out.println("Cerrando la app...");
                     break;
@@ -75,6 +80,14 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public List<BookData> getPopularBookData() {
+        // la API por default trae lo más populares; sin embargo añadimos la query..
+        String json = consumeAPI.getData(URL_BASE + "?sort=popular");
+        List<BookData> books = conversor.convertData(json, Data.class).results();
+
+        return books;
     }
 
     public Optional<BookData> getBookData(String userTitle) {
@@ -178,5 +191,19 @@ public class Main {
         System.out.println("La cantidad minima de descargas es: " + est.getMin());
         System.out.println("La cantidad de registros para generar las estadisticas (libros de la db): " + est.getCount());
         System.out.println("------------------------");
+    }
+
+    public void getApiPopularBooks(){
+        List<BookData> apiBooks = getPopularBookData().stream()
+                .limit(10)
+                .collect(Collectors.toList());
+
+        apiBooks.forEach(b -> System.out.printf("""
+                --- API LIBRO ---
+                Título: %s
+                Autor: %s
+                Idioma: %s
+                Número de descargas: %s
+                ------------\n""", b.title(), b.authors().get(0).name(), b.languages().get(0), b.downloads()));
     }
 }
