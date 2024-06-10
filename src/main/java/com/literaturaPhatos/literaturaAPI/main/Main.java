@@ -41,7 +41,7 @@ public class Main {
                     3- Listar autores registrados.
                     4- Listar autores vivos en un determinado año.
                     5- Listar libros por idioma.
-                    6- Estadisticas de los libros descargados.
+                    6- Estadisticas de los libros registrados.
                     7- Listar libros más descargados de la API gutendex.
                     8- Listar libros más descargados en nuestro registro.
                     9- Buscar autor por nombre.
