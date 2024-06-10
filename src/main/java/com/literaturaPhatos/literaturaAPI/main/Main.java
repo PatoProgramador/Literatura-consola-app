@@ -44,6 +44,7 @@ public class Main {
                     6- Estadisticas de los libros descargados.
                     7- Listar libros más descargados de la API gutendex.
                     8- Listar libros más descargados en nuestro registro.
+                    9- Buscar autor por nombre.
                     0- Salir.
                     """;
             System.out.println(MENU);
@@ -74,6 +75,9 @@ public class Main {
                     break;
                 case 8:
                     getDBPopularBooks();
+                    break;
+                case 9:
+                    getAuthorByName();
                     break;
                 case 0:
                     System.out.println("Cerrando la app...");
@@ -215,5 +219,17 @@ public class Main {
 
         dbBooks.forEach(System.out::println);
         printSizeBr("libros", dbBooks.size());
+    }
+
+    public void getAuthorByName() {
+        System.out.println("Ingresa el nombre del autor: ");
+        String authorName = SCANNER.nextLine();
+        Optional<Author> dbAuthor = authorRepository.findByNameContainsIgnoreCase(authorName);
+
+        if (dbAuthor.isPresent()) {
+            System.out.println(dbAuthor.get());
+        } else {
+            System.out.println("El autor no se encuentra registrado :(");
+        }
     }
 }
