@@ -1,7 +1,5 @@
 package com.literaturaPhatos.literaturaAPI.main;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.literaturaPhatos.literaturaAPI.model.Author;
 import com.literaturaPhatos.literaturaAPI.model.Book;
 import com.literaturaPhatos.literaturaAPI.model.BookData;
@@ -11,7 +9,7 @@ import com.literaturaPhatos.literaturaAPI.repository.BookRepository;
 import com.literaturaPhatos.literaturaAPI.service.ConsumeAPI;
 import com.literaturaPhatos.literaturaAPI.service.Conversor;
 
-import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -43,6 +41,7 @@ public class Main {
                     3- Listar autores registrados.
                     4- Listar autores vivos en un determinado año.
                     5- Listar libros por idioma.
+                    6- Estadisticas de los libros descargados.
                     0- Salir.
                     """;
             System.out.println(MENU);
@@ -65,6 +64,9 @@ public class Main {
                 case 5:
                     getBooksByLanguage();
                     break;
+                case 6:
+                    getBooksStatistics();
+                    break;
                 case 0:
                     System.out.println("Cerrando la app...");
                     break;
@@ -73,9 +75,6 @@ public class Main {
                     break;
             }
         }
-        String json = consumeAPI.getData(URL_BASE + URL_SEARCH_BY_NAME + "great+expectations");
-        JsonArray results = consumeAPI.getDataResultsAsJson(json);
-        System.out.println(results);
     }
 
     public Optional<BookData> getBookData(String userTitle) {
@@ -166,5 +165,18 @@ public class Main {
         } else {
             dbBooks.forEach(System.out::println);
         }
+    }
+
+    public void getBooksStatistics() {
+        List<Book> dbBooks = bookRepository.findAll();
+        DoubleSummaryStatistics est = dbBooks.stream()
+                .filter(l -> l.getDownloads() > 0)
+                .collect(Collectors.summarizingDouble(Book::getDownloads));
+        System.out.println("------------------------");
+        System.out.println("La media de descargas es: " + est.getAverage());
+        System.out.println("La cantidad máxima de descargas es: " + est.getMax());
+        System.out.println("La cantidad minima de descargas es: " + est.getMin());
+        System.out.println("La cantidad de registros para generar las estadisticas (libros de la db): " + est.getCount());
+        System.out.println("------------------------");
     }
 }
