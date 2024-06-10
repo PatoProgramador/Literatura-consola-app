@@ -48,7 +48,6 @@ Ejemplo de uso:
 
 Se realiza una consulta a la base de datos trayendo todos los libros registrados, posterior a ello se imprimen en consola todos. Finalmente, muestra cuantos libros hay registrados en total.
 Se muestran en orden de registro.
-
 Ejemplo de uso:
 
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/24b4b578-af1e-496c-aa75-c4c17d7328f6)
@@ -58,7 +57,6 @@ Ejemplo de uso:
 
 Esta función actua igual que la de listar libros, se realiza una consulta a la db para traer a todos los autores e imprimirlos.
 Adicionalmente muestra todos los libros relacionados a cada autor.
-
 Ejemplo de uso:
 
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/e8ac09e7-6f26-4eb3-940e-5281bd919225)
@@ -67,7 +65,6 @@ Ejemplo de uso:
 
 Se realiza una consulta a los autores de la base de datos filtrandolos por dos condiciones: 1) que su año de nacimiento sea menor o igual al parametro dado. 2) que su año de fallecimiento sea mayor o igual al parametro dado.
 Así, se garantiza que el listado resultante de autores sean aquellos que estuvieron vivos al rededor del año dado.
-
 Ejemplo de uso:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/05ed6eba-e44d-4389-961f-91a9561c0870)
 
@@ -76,9 +73,7 @@ Ejemplo de uso:
 En principio se muestra un pequeño menu con los idiomas disponibles:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/1e5ae9e8-a79c-4acd-a72a-b0007febff74)
 
-Posterior a ingresar la abrevitura, se traera de la base de datos el listado de libros que tengan este idioma en su columna "language"
-
-Ejemplo de uso:
+Posterior a ingresar la abrevitura, se traera de la base de datos el listado de libros que tengan este idioma en su columna "language". Ejemplo:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/dc95fc88-626f-4fea-99eb-a915682957ce)
 
 ### Mostrar estadisticas de los libros registrados
@@ -86,7 +81,6 @@ Ejemplo de uso:
 En esta opcion se toma todo el listado de libros registrados en la base de datos, se toma la propiedad de "downloads" de cada uno para poder generar las estadisticas pertinentes a partir de la clase DoubleSummaryStatistics de Java.
 
 Finalmente, se presenta un resumen de las estadisticas más importantes en cuestion de descargas de todos los libros registrados, como la media, el dato maximo, etc.
-
 Ejemplo de uso:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/7055a276-8d16-4e61-a000-afd7b1e10f48)
 
@@ -94,14 +88,12 @@ Ejemplo de uso:
 ### Listar libros más descargados de la API gutendex
 
 Aquí traemos el listado general de libros de la API gutendex y filtramos los 10 más descargados. Por defecto la API misma trae en su primera página los trae por los más descargados en orden descendente, asi que solo traemos los primeros 10.
-
 Ejemplo de uso:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/915bb816-393e-4ea3-b78c-1510271e52bf)
 
 ### Listar libros más descargados de la base de datos
 
 Se hace una consulta a la base de datos para que traiga de forma descendente 10 libros segun la cantidad de descargas, asi, obtenemos los 10 más descargados que hay registrados.
-
 Ejemplo de uso:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/2f8f5394-1442-467f-8507-1633e1bdfdc7)
 
@@ -109,6 +101,5 @@ Ejemplo de uso:
 
 Aquí damos uso de las JPA Derived queries para consultar un autor por nombre en la db a partir de si el nombre esta contenido, ignorando el case sensitive.
 Esta funcionalidad de usó en la primera opcion para poder buscar autores registrados y decidir si crearlos o no.
-
 Ejemplo de uso:
 ![image](https://github.com/PatoProgramador/Literatura-consola-app/assets/72218702/43abfec0-6884-4f7b-a1ac-d45a5c2fe431)
